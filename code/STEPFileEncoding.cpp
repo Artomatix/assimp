@@ -46,6 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fast_atof.h"
 #include <contrib/utf8cpp/source/utf8.h>
 
+#include "convertutf/ConvertUTF.h"
 #include <memory>
 
 using namespace Assimp;

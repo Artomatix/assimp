@@ -303,7 +303,18 @@ void BaseImporter::GetExtensionList(std::set<std::string>& extensions)
     return false;
 }
 
-#include "../contrib/utf8cpp/source/utf8.h"
+#include "convertutf/ConvertUTF.h"
+
+// ------------------------------------------------------------------------------------------------
+void ReportResult(ConversionResult res)
+{
+    if(res == sourceExhausted) {
+        DefaultLogger::get()->error("Source ends with incomplete character sequence, transformation to UTF-8 fails");
+    }
+    else if(res == sourceIllegal) {
+        DefaultLogger::get()->error("Source contains illegal character sequence, transformation to UTF-8 fails");
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Convert to UTF8 data

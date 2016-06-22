@@ -1,40 +1,5 @@
-# Open Asset Import Library (assimp)
-# ----------------------------------------------------------------------
-# Copyright (c) 2006-2017, assimp team
-# All rights reserved.
-#
-# Redistribution and use of this software in source and binary forms,
-# with or without modification, are permitted provided that the
-# following conditions are met:
-#
-# * Redistributions of source code must retain the above
-#   copyright notice, this list of conditions and the
-#   following disclaimer.
-#
-# * Redistributions in binary form must reproduce the above
-#   copyright notice, this list of conditions and the
-#   following disclaimer in the documentation and/or other
-#   materials provided with the distribution.
-#
-# * Neither the name of the assimp team, nor the names of its
-#   contributors may be used to endorse or promote products
-#   derived from this software without specific prior
-#   written permission of the assimp team.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#----------------------------------------------------------------------
-SET(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
-cmake_minimum_required( VERSION 2.8 )
+set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
+cmake_minimum_required( VERSION 3.0 )
 
 include("cmake/HunterGate.cmake")
 HunterGate(
@@ -267,30 +232,15 @@ IF ( SYSTEM_IRRXML )
     find_package( IrrXML REQUIRED )
 ENDIF( SYSTEM_IRRXML )
 
-# Search for external dependencies, and build them from source if not found
-# Search for zlib
-IF ( NOT ASSIMP_BUILD_ZLIB )
-    find_package(ZLIB)
-ENDIF( NOT ASSIMP_BUILD_ZLIB )
+hunter_add_package(ZLIB)
+find_package(ZLIB CONFIG REQUIRED)
 
-IF( NOT ZLIB_FOUND )
-  message(STATUS "compiling zlib from souces")
-  include(CheckIncludeFile)
-  include(CheckTypeSize)
-  include(CheckFunctionExists)
-  # compile from sources
-  add_subdirectory(contrib/zlib)
-  SET(ZLIB_FOUND 1)
-  SET(ZLIB_LIBRARIES zlibstatic)
-  SET(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/contrib/zlib ${CMAKE_CURRENT_BINARY_DIR}/contrib/zlib)
-else(NOT ZLIB_FOUND)
-  ADD_DEFINITIONS(-DASSIMP_BUILD_NO_OWN_ZLIB)
-  SET(ZLIB_LIBRARIES_LINKED -lz)
-ENDIF(NOT ZLIB_FOUND)
-INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
+SET(ZLIB_LIBRARIES_LINKED -lz)
 
 # Search for unzip
-use_pkgconfig(UNZIP minizip)
+hunter_add_package(minizip)
+find_package(minizip CONFIG REQUIRED)
+set(UNZIP_FOUND TRUE)
 
 IF ( ASSIMP_NO_EXPORT )
   ADD_DEFINITIONS( -DASSIMP_BUILD_NO_EXPORT)

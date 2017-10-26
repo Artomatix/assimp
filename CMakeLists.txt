@@ -3,8 +3,8 @@ cmake_minimum_required( VERSION 3.0 )
 
 include("cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.14.26.tar.gz"
-    SHA1 "45ac03944db2bc7fc55dfceca42d89ec7fa1dca2"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.136.tar.gz"
+    SHA1 "00e8ee66494a66cc2d4df0410ab3dd3948892a7a"
 )
 
 PROJECT( Assimp )
@@ -85,10 +85,8 @@ SET (PROJECT_VERSION "${ASSIMP_VERSION}")
 
 SET(ASSIMP_PACKAGE_VERSION "0" CACHE STRING "the package-specific version used for uploading the sources")
 
-if(NOT HUNTER_ENABLED)
-  # Needed for openddl_parser config, no use of c++11 at this moment
-  add_definitions( -DOPENDDL_NO_USE_CPP11 )
-endif()
+# Needed for openddl_parser config, no use of c++11 at this moment
+add_definitions( -DOPENDDL_NO_USE_CPP11 )
 set_property( GLOBAL PROPERTY CXX_STANDARD 11 )
 
 # Get the current working branch

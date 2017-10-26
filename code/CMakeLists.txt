@@ -714,11 +714,6 @@ SET( ConvertUTF_SRCS
   ../contrib/ConvertUTF/ConvertUTF.h
   ../contrib/ConvertUTF/ConvertUTF.c
 )
-if(HUNTER_ENABLED)
-  set(ConvertUTF_SRCS "")
-  hunter_add_package(convertutf)
-  find_package(convertutf CONFIG REQUIRED)
-endif()
 SOURCE_GROUP( ConvertUTF FILES ${ConvertUTF_SRCS})
 
 SET( Clipper_SRCS
@@ -781,11 +776,6 @@ SET ( openddl_parser_SRCS
   ../contrib/openddlparser/include/openddlparser/DDLNode.h
   ../contrib/openddlparser/include/openddlparser/Value.h
 )
-if(HUNTER_ENABLED)
-  set(openddl_parser_SRCS "")
-  hunter_add_package(openddlparser)
-  find_package(openddlparser CONFIG REQUIRED)
-endif()
 SOURCE_GROUP( openddl_parser FILES ${openddl_parser_SRCS})
 
 SET ( open3dgc_SRCS
@@ -890,6 +880,11 @@ SET( assimp_src
 )
 ADD_DEFINITIONS( -DOPENDDLPARSER_BUILD )
 
+INCLUDE_DIRECTORIES(
+    ${IRRXML_INCLUDE_DIR}
+    ../contrib/openddlparser/include
+)
+
 IF (ASSIMP_BUILD_NONFREE_C4D_IMPORTER)
   SET( assimp_src ${assimp_src} ${C4D_SRCS})
   INCLUDE_DIRECTORIES(${C4D_INCLUDES})
@@ -900,14 +895,10 @@ ADD_LIBRARY( assimp ${assimp_src} )
 TARGET_LINK_LIBRARIES(
     assimp
     PUBLIC
-    convertutf::convertutf
     polyclipping::polyclipping
-    irrXML::irrXML
-    openddlparser::openddl_parser
     poly2tri::poly2tri
     minizip::minizip
     ZLIB::zlib
-    Boost::boost
 )
 
 target_compile_definitions(assimp PUBLIC ASSIMP_BUILD_NO_OWN_ZLIB)

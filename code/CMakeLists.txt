@@ -710,21 +710,11 @@ SET( IrrXML_SRCS
 )
 SOURCE_GROUP( IrrXML FILES ${IrrXML_SRCS})
 
-SET( ConvertUTF_SRCS
-  ../contrib/ConvertUTF/ConvertUTF.h
-  ../contrib/ConvertUTF/ConvertUTF.c
-)
-SOURCE_GROUP( ConvertUTF FILES ${ConvertUTF_SRCS})
 
 SET( Clipper_SRCS
   ../contrib/clipper/clipper.hpp
   ../contrib/clipper/clipper.cpp
 )
-if(HUNTER_ENABLED)
-  set(Clipper_SRCS "")
-  hunter_add_package(polyclipping)
-  find_package(polyclipping CONFIG REQUIRED)
-endif()
 SOURCE_GROUP( Clipper FILES ${Clipper_SRCS})
 
 SET( Poly2Tri_SRCS
@@ -740,11 +730,6 @@ SET( Poly2Tri_SRCS
   ../contrib/poly2tri/poly2tri/sweep/sweep_context.cc
   ../contrib/poly2tri/poly2tri/sweep/sweep_context.h
 )
-if(HUNTER_ENABLED)
-  set(Poly2Tri_SRCS "")
-  hunter_add_package(poly2tri)
-  find_package(poly2tri CONFIG REQUIRED)
-endif()
 SOURCE_GROUP( Poly2Tri FILES ${Poly2Tri_SRCS})
 
 SET( unzip_SRCS
@@ -754,11 +739,6 @@ SET( unzip_SRCS
   ../contrib/unzip/unzip.c
   ../contrib/unzip/unzip.h
 )
-if(HUNTER_ENABLED)
-  set(unzip_SRCS "")
-  hunter_add_package(minizip)
-  find_package(minizip CONFIG REQUIRED)
-endif()
 SOURCE_GROUP( unzip FILES ${unzip_SRCS})
 
 SET ( openddl_parser_SRCS
@@ -895,9 +875,6 @@ ADD_LIBRARY( assimp ${assimp_src} )
 TARGET_LINK_LIBRARIES(
     assimp
     PUBLIC
-    polyclipping::polyclipping
-    poly2tri::poly2tri
-    minizip::minizip
     ZLIB::zlib
 )
 

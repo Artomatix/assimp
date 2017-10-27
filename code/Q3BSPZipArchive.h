@@ -42,8 +42,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define AI_Q3BSP_ZIPARCHIVE_H_INC
 
 #include <minizip/unzip.h>
-#include "../include/assimp/IOStream.hpp"
-#include "../include/assimp/IOSystem.hpp"
+#include <assimp/IOStream.hpp>
+#include <assimp/IOSystem.hpp>
 #include <string>
 #include <vector>
 #include <map>

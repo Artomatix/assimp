@@ -50,10 +50,6 @@ OPTION ( ASSIMP_COVERALLS
    "Eańable this to measure test coverage."
    OFF
 )
-option ( SYSTEM_IRRXML
-    "Use system installed Irrlicht/IrrXML library."
-    OFF
-)
 OPTION ( BUILD_DOCS
    "Build documentation using Doxygen."
    OFF
@@ -220,11 +216,6 @@ FIND_PACKAGE( DirectX )
 IF( BUILD_DOCS )
     add_subdirectory(doc)
 ENDIF( BUILD_DOCS )
-
-# Look for system installed irrXML
-IF ( SYSTEM_IRRXML )
-    find_package( IrrXML REQUIRED )
-ENDIF( SYSTEM_IRRXML )
 
 hunter_add_package(ZLIB)
 find_package(ZLIB CONFIG REQUIRED)

@@ -126,10 +126,10 @@ zlib_filefunc_def IOSystem2Unzip::get(IOSystem* pIOHandler) {
     zlib_filefunc_def mapping;
 
     mapping.zopen_file = open;
-    mapping.zread_file = read;
-    mapping.zwrite_file = write;
+    mapping.zread_file = (read_file_func)read;
+    mapping.zwrite_file = (write_file_func)write;
     mapping.ztell_file = tell;
-    mapping.zseek_file = seek;
+    mapping.zseek_file = (seek_file_func)seek;
     mapping.zclose_file = close;
     mapping.zerror_file = testerror;
     mapping.opaque = (voidpf) pIOHandler;

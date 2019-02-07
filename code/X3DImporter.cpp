@@ -96,7 +96,7 @@ struct WordIterator: public std::iterator<std::input_iterator_tag, const char*> 
         return *this;
     }
     bool operator==(WordIterator &other) const { return start_ == other.start_; }
-    bool operator!=(WordIterator &other) const { return start_ != other.start_; }
+    bool operator!=(const WordIterator &other) const { return start_ != other.start_; }
     WordIterator &operator++() {
         start_ += strcspn(start_, whitespace);
         start_ += strspn(start_, whitespace);
